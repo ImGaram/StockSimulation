@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/stock"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_insert_chart_outlined_24"
+        android:title="@string/stock"/>
+
+    <item
+        android:id="@+id/stock_bookmark"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_bookmark_24"
+        android:title="@string/bookmark"/>
+
+    <item
+        android:id="@+id/news"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_newspaper_24"
+        android:title="@string/news"/>
+
+    <item
+        android:id="@+id/profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/profile"/>
+
+    <item
+        android:id="@+id/ranking"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_rank_24"
+        android:title="@string/ranking"/>
+</menu>
