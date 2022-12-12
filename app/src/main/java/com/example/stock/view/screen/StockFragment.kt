@@ -23,7 +23,7 @@ class StockFragment : Fragment() {
    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
        binding = FragmentStockBinding.inflate(layoutInflater)
 
        viewModel.getStockLiveData.observe(viewLifecycleOwner) { response ->
