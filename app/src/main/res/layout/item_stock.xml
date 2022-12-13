@@ -19,18 +19,19 @@
 
             <TextView
                 android:id="@+id/items_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="23sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:layout_margin="15dp"
                 android:text="종목 이름"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:textColor="@color/black"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/dpr"
+                android:id="@+id/clpr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="종가"
@@ -39,6 +40,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/items_name" />
@@ -49,9 +51,9 @@
                 android:layout_height="wrap_content"
                 android:text="전일 대비: ?% 상승"
                 android:layout_marginStart="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/dpr"
-                app:layout_constraintStart_toEndOf="@+id/dpr"
-                app:layout_constraintTop_toTopOf="@+id/dpr" />
+                app:layout_constraintBottom_toBottomOf="@+id/clpr"
+                app:layout_constraintStart_toEndOf="@+id/clpr"
+                app:layout_constraintTop_toTopOf="@+id/clpr" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"

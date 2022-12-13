@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.stock.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stock.data.RetrofitClient
+import com.example.stock.data.response.Body
 import com.example.stock.databinding.FragmentStockBinding
-import com.example.stock.view.MainActivity
+import com.example.stock.view.adapter.StockAdapter
 import com.example.stock.viewmodel.StockViewModel
 
 class StockFragment : Fragment() {
@@ -28,8 +29,15 @@ class StockFragment : Fragment() {
 
        viewModel.getStockLiveData.observe(viewLifecycleOwner) { response ->
            if (response != null) Log.d("TAG", "onCreate: success")
+           initRecycler(response.response?.body)
        }
 
         return binding.root
+    }
+
+    private fun initRecycler(res: Body?) {
+        val adapter = StockAdapter(res?.items?.item!!)
+        binding.stockRecycler.adapter = adapter
+        binding.stockRecycler.layoutManager = LinearLayoutManager(context)
     }
 }
