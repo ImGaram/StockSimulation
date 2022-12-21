@@ -39,7 +39,6 @@ class StockFragment : Fragment() {
             }
 
             override fun onPageCenter(now_page: Int) {
-//                Toast.makeText(context, "$now_page", Toast.LENGTH_SHORT).show()
                 getStock(now_page)
             }
 
@@ -53,9 +52,15 @@ class StockFragment : Fragment() {
     }
 
     private fun getStock(number: Int) {
-        binding.progressBar.visibility = View.VISIBLE
+        // shimmer 로직
+        binding.shimmerFrame.startShimmer()
+        binding.shimmerFrame.visibility = View.VISIBLE
+        binding.scroll.visibility = View.GONE
 
-        binding.stockRecycler.visibility = View.INVISIBLE
+        // scroll view 맨 위로 올리기
+        binding.scroll.post {
+            binding.scroll.scrollTo(0, 0)
+        }
 
         // get stock logic
         viewModel.loadPost(number)
@@ -79,7 +84,9 @@ class StockFragment : Fragment() {
         binding.stockRecycler.adapter = adapter
         binding.stockRecycler.layoutManager = LinearLayoutManager(context)
 
-        binding.progressBar.visibility = View.GONE
-        binding.stockRecycler.visibility = View.VISIBLE
+        // shimmer 로직
+        binding.shimmerFrame.stopShimmer()
+        binding.shimmerFrame.visibility = View.GONE
+        binding.scroll.visibility = View.VISIBLE
     }
 }
