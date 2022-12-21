@@ -1,12 +1,14 @@
 package com.example.stock.view.adapter
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stock.data.response.Item
 import com.example.stock.databinding.ItemStockBinding
 
-class StockAdapter(): RecyclerView.Adapter<StockAdapter.ViewHolder>() {
+class StockAdapter : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
     private val list: ArrayList<Item> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,10 +23,23 @@ class StockAdapter(): RecyclerView.Adapter<StockAdapter.ViewHolder>() {
     override fun getItemCount(): Int = list.size
 
     inner class ViewHolder(private val binding: ItemStockBinding): RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(item: Item) {
             binding.clpr.text = item.clpr+"원"
-            if (item.vs.toInt() > 0) binding.vs.text = "전일 대비 ${item.vs}% 상승"
-            else binding.vs.text = "전일 대비 ${item.vs}% 하락"
+            if (item.fltRt.toDouble() > 0) {
+                binding.clpr.setTextColor(Color.RED)
+                if (item.fltRt.toDouble() < 1) {
+                    binding.fltRt.text = "전일 대비 0${item.fltRt}% 상승"
+                } else binding.fltRt.text = "전일 대비 ${item.fltRt}% 상승"
+            } else if (item.fltRt.toDouble() < 0) {
+                binding.clpr.setTextColor(Color.BLUE)
+                if (item.fltRt.toDouble() > -1) {
+                    val fltRt = item.fltRt
+                    val res = fltRt.substring(0,1) + "0" + fltRt.substring(1)
+
+                    binding.fltRt.text = "전일 대비 $res% 하락"
+                } else binding.fltRt.text = "전일 대비 ${item.fltRt}% 하락"
+            } else binding.fltRt.text = "전일 대비 유지"
             binding.itemsName.text = item.itmsNm
         }
     }
