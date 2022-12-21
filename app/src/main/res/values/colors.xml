@@ -10,4 +10,6 @@
     <color name="cyan">#FF00FFFF</color>
     <color name="blue">#00A1FF</color>
     <color name="red">#FFFF0000</color>
+    <color name="darkGray">#CECECE</color>
+    <color name="gray">#E5E5E5</color>
 </resources>

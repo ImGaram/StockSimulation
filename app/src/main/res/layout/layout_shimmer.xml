@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/darkGray"
         android:layout_margin="10dp"
         app:cardCornerRadius="10dp">
 
@@ -18,23 +19,23 @@
             android:layout_margin="5dp">
 
             <TextView
-                android:id="@+id/items_name"
+                android:id="@+id/items_name_shimmer"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_margin="15dp"
-                android:text="종목 이름"
+                android:background="@drawable/shimmer_item_bg"
                 android:textColor="@color/black"
                 android:textSize="23sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout_shimmer"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/clpr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="종가"
+                android:id="@+id/clpr_shimmer"
+                android:layout_width="45dp"
+                android:layout_height="28dp"
+                android:background="@drawable/shimmer_item_bg"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:layout_marginStart="15dp"
@@ -43,20 +44,20 @@
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/items_name" />
+                app:layout_constraintTop_toBottomOf="@+id/items_name_shimmer" />
 
             <TextView
-                android:id="@+id/vs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전일 대비: ?% 상승"
+                android:id="@+id/vs_shimmer"
+                android:layout_width="120dp"
+                android:layout_height="18dp"
+                android:background="@drawable/shimmer_item_bg"
                 android:layout_marginStart="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/clpr"
-                app:layout_constraintStart_toEndOf="@+id/clpr"
-                app:layout_constraintTop_toTopOf="@+id/clpr" />
+                app:layout_constraintBottom_toBottomOf="@+id/clpr_shimmer"
+                app:layout_constraintStart_toEndOf="@+id/clpr_shimmer"
+                app:layout_constraintTop_toTopOf="@+id/clpr_shimmer" />
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/linearLayout_shimmer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="15dp"
@@ -65,23 +66,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <Button
-                    android:id="@+id/buying_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/blue"
-                    android:text="매수"
-                    android:layout_marginBottom="5dp"/>
+                <View
+                    android:id="@+id/buying_button_shimmer"
+                    android:layout_width="88dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/shimmer_item_bg"
+                    android:layout_marginBottom="5dp" />
 
-                <Button
-                    android:id="@+id/sell_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/red"
-                    android:text="매도" />
+                <View
+                    android:id="@+id/sell_button_shimmer"
+                    android:layout_width="88dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/shimmer_item_bg"/>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
 </LinearLayout>
