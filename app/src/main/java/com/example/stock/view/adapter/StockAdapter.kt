@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stock.data.response.Item
 import com.example.stock.databinding.ItemStockBinding
 
-class StockAdapter(private val list: List<Item>): RecyclerView.Adapter<StockAdapter.ViewHolder>() {
+class StockAdapter(): RecyclerView.Adapter<StockAdapter.ViewHolder>() {
+    private val list: ArrayList<Item> = arrayListOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ItemStockBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
@@ -25,5 +27,13 @@ class StockAdapter(private val list: List<Item>): RecyclerView.Adapter<StockAdap
             else binding.vs.text = "전일 대비 ${item.vs}% 하락"
             binding.itemsName.text = item.itmsNm
         }
+    }
+
+    fun addItem(item: List<Item>) {
+        list.addAll(item)
+    }
+
+    fun clear() {
+        list.clear()
     }
 }
