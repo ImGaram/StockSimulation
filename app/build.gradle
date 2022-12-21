@@ -43,7 +43,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
     // paging
-    implementation "com.github.markomilos:paginate:1.0.0"
     implementation 'com.github.lakue119:LakuePagingButton:1.0.0'
 
     // design
@@ -52,8 +51,8 @@ dependencies {
     // lifecycle
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
-    // paging library
-    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    // shimmer
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
