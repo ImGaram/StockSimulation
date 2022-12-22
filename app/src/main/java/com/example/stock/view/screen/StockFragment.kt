@@ -16,12 +16,12 @@ import com.lakue.pagingbutton.OnPageSelectListener
 
 class StockFragment : Fragment() {
     private val viewModel by lazy {
-        ViewModelProvider(this, StockViewModel.Factory(activity?.application!!,
-            RetrofitClient.STOCK_KEY, pageNo))[StockViewModel::class.java]
+        ViewModelProvider(this, StockViewModel.Factory(
+            activity?.application!!, RetrofitClient.STOCK_KEY
+        ))[StockViewModel::class.java]
     }
-    private val pageNo = 1
     private lateinit var binding: FragmentStockBinding
-    private val adapter = StockAdapter()
+    private lateinit var adapter: StockAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +30,9 @@ class StockFragment : Fragment() {
         viewModelStore.clear()
         binding = FragmentStockBinding.inflate(layoutInflater)
         binding.lpbButtonlist.addBottomPageButton(188158,1)
+        adapter = StockAdapter(requireContext())
 
-        getStock(pageNo)
+        getStock(1)
         binding.lpbButtonlist.setOnPageSelectListener(object :OnPageSelectListener {
             override fun onPageBefore(now_page: Int) {
                 binding.lpbButtonlist.addBottomPageButton(188158, now_page)

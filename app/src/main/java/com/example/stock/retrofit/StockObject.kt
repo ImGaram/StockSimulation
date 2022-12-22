@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
@@ -28,6 +29,7 @@ object StockObject {
             .build()
 
     val stockService: StockService = retrofit.create(StockService::class.java)
+    val stockInfoService: StockInfoService = retrofit.create(StockInfoService::class.java)
 
     private fun getUnsafeOkHttpClient(): OkHttpClient.Builder =
         try {

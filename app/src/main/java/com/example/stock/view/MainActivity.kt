@@ -1,14 +1,10 @@
 package com.example.stock.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.example.stock.R
-import com.example.stock.data.RetrofitClient
 import com.example.stock.databinding.ActivityMainBinding
 import com.example.stock.view.screen.*
-import com.example.stock.viewmodel.StockViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

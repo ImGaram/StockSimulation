@@ -21,4 +21,11 @@ class StockRepository(application: Application) {
             response.body() as StockResponse
         else StockResponse(null)
     }
+
+    suspend fun getStockInfo(apikey: String, itmsNm: String, numOfRows: Int): StockResponse {
+        val response = StockObject.stockInfoService.getOneStock(numOfRows, itmsNm, apikey)
+        return if (response.isSuccessful)
+            response.body() as StockResponse
+        else StockResponse(null)
+    }
 }
