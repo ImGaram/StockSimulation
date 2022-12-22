@@ -22,7 +22,6 @@
             android:layout_gravity="center"
             android:layout_marginStart="15dp"
             android:text="stock name"
-            android:textColor="@color/black"
             android:textSize="25sp" />
 
         <View
@@ -53,7 +52,6 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
                 android:text="100000"
-                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -66,7 +64,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:text="stock name"
-        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,4 +79,186 @@
         app:layout_constraintBottom_toBottomOf="@+id/stock_info_stock_name"
         app:layout_constraintStart_toEndOf="@+id/stock_info_stock_name"
         app:layout_constraintTop_toTopOf="@+id/stock_info_stock_name" />
+
+    <com.github.mikephil.charting.charts.CandleStickChart
+        android:id="@+id/candle_stick_chart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintTop_toBottomOf="@+id/stock_info_stock_name" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/candle_stick_chart">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--현재 가격-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="현재 가격"
+                    android:textSize="25sp"
+                    android:layout_marginStart="15dp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/present_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000"
+                    android:textSize="25sp"
+                    android:layout_marginEnd="15dp"/>
+            </LinearLayout>
+            <!--최고 가격-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="최고 가격"
+                    android:textSize="25sp"
+                    android:layout_marginStart="15dp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/high_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000"
+                    android:textSize="25sp"
+                    android:layout_marginEnd="15dp"/>
+            </LinearLayout>
+            <!--최저 가격-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="최저 가격"
+                    android:textSize="25sp"
+                    android:layout_marginStart="15dp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/low_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000"
+                    android:textSize="25sp"
+                    android:layout_marginEnd="15dp"/>
+            </LinearLayout>
+            <!--시작 가격-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시작 가격"
+                    android:textSize="25sp"
+                    android:layout_marginStart="15dp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/start_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000"
+                    android:textSize="25sp"
+                    android:layout_marginEnd="15dp"/>
+            </LinearLayout>
+            <!--변동률-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="변동률"
+                    android:textSize="25sp"
+                    android:layout_marginStart="15dp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/fluctutaion_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000"
+                    android:textSize="25sp"
+                    android:layout_marginEnd="15dp"/>
+            </LinearLayout>
+            <!--거래량-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="거래량"
+                    android:textSize="25sp"
+                    android:layout_marginStart="15dp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/trade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000"
+                    android:textSize="25sp"
+                    android:layout_marginEnd="15dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
