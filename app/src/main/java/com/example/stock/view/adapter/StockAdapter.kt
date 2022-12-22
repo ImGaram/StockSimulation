@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stock.data.response.Item
 import com.example.stock.databinding.ItemStockBinding
 import com.example.stock.view.StockInfoActivity
+import java.text.DecimalFormat
 
 class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
     private val list: ArrayList<Item> = arrayListOf()
@@ -28,7 +29,9 @@ class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAda
     inner class ViewHolder(private val binding: ItemStockBinding): RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: Item) {
-            binding.clpr.text = item.clpr+"원"
+            val dec = DecimalFormat("#,###")
+
+            binding.clpr.text = "${dec.format(item.clpr.toInt())}원"
             if (item.fltRt.toDouble() > 0) {
                 binding.clpr.setTextColor(Color.RED)
                 if (item.fltRt.toDouble() < 1) {
