@@ -1,14 +1,17 @@
 package com.example.stock.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stock.data.response.Item
 import com.example.stock.databinding.ItemStockBinding
+import com.example.stock.view.StockInfoActivity
 
-class StockAdapter : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
+class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
     private val list: ArrayList<Item> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,6 +44,13 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
                 } else binding.fltRt.text = "전일 대비 ${item.fltRt}% 하락"
             } else binding.fltRt.text = "전일 대비 유지"
             binding.itemsName.text = item.itmsNm
+
+
+            itemView.setOnClickListener {
+                val intent = Intent(context, StockInfoActivity::class.java)
+                intent.putExtra("name", item.itmsNm)
+                context.startActivity(intent)
+            }
         }
     }
 

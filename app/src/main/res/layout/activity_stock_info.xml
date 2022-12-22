@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    tools:context=".view.StockInfoActivity">
 
     <LinearLayout
-        android:id="@+id/tool_bar_lay"
+        android:id="@+id/stock_info_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/lightGray"
@@ -16,19 +16,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/user_name"
+            android:id="@+id/stock_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="user name"
-            android:textSize="23sp"
             android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:text="stock name"
             android:textColor="@color/black"
-            android:layout_marginStart="15dp"/>
+            android:textSize="25sp" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,39 +43,43 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/coin"/>
+                android:src="@drawable/coin" />
 
             <TextView
-                android:id="@+id/coin"
+                android:id="@+id/stock_info_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100000"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="10dp"
-                android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:layout_marginStart="5dp"/>
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:text="100000"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tool_bar_lay" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/stock_info_stock_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="stock name"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navi_menu"
-        app:itemIconTint="@color/darkGray"
-        app:itemTextColor="@color/darkGray"
-        app:itemBackground="@color/lightGray" />
+        app:layout_constraintTop_toBottomOf="@+id/stock_info_toolbar" />
+
+    <TextView
+        android:id="@+id/fluctutaion_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▲ or ▼"
+        android:textSize="19sp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/stock_info_stock_name"
+        app:layout_constraintStart_toEndOf="@+id/stock_info_stock_name"
+        app:layout_constraintTop_toTopOf="@+id/stock_info_stock_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
