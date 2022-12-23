@@ -1,5 +1,7 @@
 package com.example.stock.data.response
 
+import java.io.Serializable
+
 data class Item(
     val basDt: String,
     val clpr: String,
@@ -16,4 +18,4 @@ data class Item(
     val trPrc: String,
     val trqu: String,
     val vs: String
-)
+): Serializable

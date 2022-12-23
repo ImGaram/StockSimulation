@@ -52,6 +52,7 @@ class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAda
             itemView.setOnClickListener {
                 val intent = Intent(context, StockInfoActivity::class.java)
                 intent.putExtra("name", item.itmsNm)
+                intent.putExtra("info", item)
                 context.startActivity(intent)
             }
         }

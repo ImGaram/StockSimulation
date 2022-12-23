@@ -73,11 +73,20 @@
         android:id="@+id/fluctutaion_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="▲ or ▼"
         android:textSize="19sp"
         android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/stock_info_stock_name"
         app:layout_constraintStart_toEndOf="@+id/stock_info_stock_name"
+        app:layout_constraintTop_toTopOf="@+id/stock_info_stock_name" />
+
+    <ImageView
+        android:id="@+id/bookmark_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_baseline_bookmark_border_24"
+        app:layout_constraintBottom_toBottomOf="@+id/stock_info_stock_name"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/stock_info_stock_name" />
 
     <com.github.mikephil.charting.charts.CandleStickChart

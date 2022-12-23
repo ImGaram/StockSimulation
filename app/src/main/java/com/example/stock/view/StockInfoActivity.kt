@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.stock.R
 import com.example.stock.data.ChartData
 import com.example.stock.data.RetrofitClient
 import com.example.stock.data.response.Item
@@ -16,6 +18,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.CandleData
 import com.github.mikephil.charting.data.CandleDataSet
 import com.github.mikephil.charting.data.CandleEntry
+import com.google.firebase.database.*
 import java.text.DecimalFormat
 
 class StockInfoActivity : AppCompatActivity() {
@@ -25,6 +28,7 @@ class StockInfoActivity : AppCompatActivity() {
     }
     private lateinit var itemName: String
     private lateinit var binding: ActivityStockInfoBinding
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,14 @@ class StockInfoActivity : AppCompatActivity() {
         itemName = intent.getStringExtra("name").toString()
         binding.stockInfoStockName.text = itemName
         binding.stockName.text = itemName
+
+        binding.bookmarkImage.setOnClickListener {
+            database = FirebaseDatabase.getInstance().reference.child("bookmark")
+            database.setValue(intent.getSerializableExtra("info")).addOnSuccessListener {
+                bookMarkLogic()
+                Toast.makeText(this, "찜한 주식에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         val candle = arrayListOf<ChartData>()
         viewModel.getStockInfo()
@@ -58,6 +70,24 @@ class StockInfoActivity : AppCompatActivity() {
                 setData(list[0])
             }
         }
+
+
+    }
+
+    private fun bookMarkLogic() {
+        database.addListenerForSingleValueEvent(object :ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (dataSnapshot in snapshot.children) {
+                    if (dataSnapshot.getValue(Item::class.java)?.itmsNm == itemName)
+                        binding.bookmarkImage.setImageResource(R.drawable.ic_baseline_bookmark_24)
+                    else
+                        binding.bookmarkImage.setImageResource(R.drawable.ic_baseline_bookmark_border_24)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
     }
 
     @SuppressLint("SetTextI18n")
