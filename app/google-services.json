@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "761464009091",
+    "firebase_url": "https://stock-simulation-c252f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "stock-simulation-c252f",
+    "storage_bucket": "stock-simulation-c252f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761464009091:android:56888b36df4354bd6486b6",
+        "android_client_info": {
+          "package_name": "com.example.stock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761464009091-dooamjs25u4bf8sqm3oot4g91mpo68q3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stock",
+            "certificate_hash": "679edd4e4441a6210c28c24eba23aef14f28854d"
+          }
+        },
+        {
+          "client_id": "761464009091-iik9nv7alon77e81im7r42b5tikc9jil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxX2FN6L9rjnyAURHBn4loNe5nvIFptn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761464009091-iik9nv7alon77e81im7r42b5tikc9jil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
