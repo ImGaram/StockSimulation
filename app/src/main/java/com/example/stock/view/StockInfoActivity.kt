@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -29,6 +30,9 @@ class StockInfoActivity : AppCompatActivity() {
     private lateinit var itemName: String
     private lateinit var binding: ActivityStockInfoBinding
     private lateinit var database: DatabaseReference
+    private lateinit var item: Item
+
+    private var bookmarkAble: Boolean = false   // bookmark 상태를 관리한다.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +40,30 @@ class StockInfoActivity : AppCompatActivity() {
         binding = ActivityStockInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        database = FirebaseDatabase.getInstance().reference
+        item = intent.getSerializableExtra("info") as Item
         itemName = intent.getStringExtra("name").toString()
         binding.stockInfoStockName.text = itemName
         binding.stockName.text = itemName
 
-        binding.bookmarkImage.setOnClickListener {
-            database = FirebaseDatabase.getInstance().reference.child("bookmark")
-            database.setValue(intent.getSerializableExtra("info")).addOnSuccessListener {
-                bookMarkLogic()
-                Toast.makeText(this, "찜한 주식에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+        val bookmarkImage = binding.bookmarkImage
+        bookmarkAble = intent.getBooleanExtra("bookmark", false)
+        bookMarkLogic()
+        bookmarkImage.setOnClickListener {
+            val ref = database.child("bookmark").child(item.itmsNm)
+            Log.d("TAG", "onCreate: $bookmarkAble")
+            if (!bookmarkAble) { // 찜 리스트에 삽입
+                ref.setValue(item).addOnSuccessListener {
+                    bookmarkAble = true
+                    Toast.makeText(this, "찜한 주식에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                    bookMarkLogic()
+                }
+            } else {    // 이미 찜 리스트에 들어가 있음
+                ref.removeValue().addOnSuccessListener {
+                    bookmarkAble = false
+                    Toast.makeText(this, "찜한 주식에서 제거되었습니다.", Toast.LENGTH_SHORT).show()
+                    bookMarkLogic()
+                }
             }
         }
 
@@ -70,26 +89,14 @@ class StockInfoActivity : AppCompatActivity() {
                 setData(list[0])
             }
         }
-
-
     }
 
     private fun bookMarkLogic() {
-        database.addListenerForSingleValueEvent(object :ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (dataSnapshot in snapshot.children) {
-                    if (dataSnapshot.getValue(Item::class.java)?.itmsNm == itemName)
-                        binding.bookmarkImage.setImageResource(R.drawable.ic_baseline_bookmark_24)
-                    else
-                        binding.bookmarkImage.setImageResource(R.drawable.ic_baseline_bookmark_border_24)
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {}
-
-        })
+        if (!bookmarkAble) binding.bookmarkImage.setImageResource(R.drawable.ic_baseline_bookmark_border_24)
+        else binding.bookmarkImage.setImageResource(R.drawable.ic_baseline_bookmark_24)
     }
 
+    // candle stick chart
     @SuppressLint("SetTextI18n")
     private fun setData(item: Item) {
         val dec = DecimalFormat("#,###")    // 천단위 구분
@@ -176,7 +183,7 @@ class StockInfoActivity : AppCompatActivity() {
         val priceDataSet = CandleDataSet(priceEntry, "").apply {
             axisDependency = YAxis.AxisDependency.LEFT
             // 심지 부분 설정
-            shadowColor = Color.LTGRAY
+            shadowColor = Color.GRAY
             shadowWidth = 0.9F
             // 음봉 설정
             decreasingColor = Color.BLUE

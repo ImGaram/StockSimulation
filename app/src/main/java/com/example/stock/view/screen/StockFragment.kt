@@ -72,7 +72,6 @@ class StockFragment : Fragment() {
                 } else {
                     if (response[0].response?.header?.resultCode == "00")
                         Log.d("TAG", "getStock list size: ${response.size}")
-                    Log.d("TAG", "onCreate: success")
                     adapter.clear()
                     adapter.addItem(response[0].response?.body?.items?.item!!)
                     initRecycler()
