@@ -23,23 +23,28 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.stock -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.linear, StockFragment()).commitAllowingStateLoss()
+                    supportFragmentManager.beginTransaction().replace(R.id.linear, StockFragment())
+                        .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
                 R.id.stock_bookmark -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.linear, BookmarkFragment()).commitAllowingStateLoss()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.linear, BookmarkFragment()).commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
                 R.id.news -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.linear, NewsFragment()).commitAllowingStateLoss()
+                    supportFragmentManager.beginTransaction().replace(R.id.linear, NewsFragment())
+                        .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
                 R.id.profile -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.linear, ProfileFragment()).commitAllowingStateLoss()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.linear, ProfileFragment()).commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
                 R.id.ranking -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.linear, RankingFragment()).commitAllowingStateLoss()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.linear, RankingFragment()).commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
             }

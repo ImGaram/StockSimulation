@@ -86,6 +86,10 @@ class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAda
         list.addAll(item)
     }
 
+    fun add(item: Item) {
+        list.add(item)
+    }
+
     fun clear() {
         list.clear()
     }
