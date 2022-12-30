@@ -1,4 +1,4 @@
-package com.example.stock.data.response
+package com.example.stock.data.response.stock
 
 import java.io.Serializable
 
