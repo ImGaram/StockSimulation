@@ -1,19 +1,9 @@
 package com.example.stock.repository
 
-import android.app.Application
 import com.example.stock.data.response.stock.StockResponse
 import com.example.stock.retrofit.StockObject
 
-class StockRepository(application: Application) {
-    companion object {
-        private var instance: StockRepository? = null
-
-        fun getInstance(application: Application): StockRepository? {
-            if (instance != null) instance = StockRepository(application)
-            return instance
-        }
-    }
-
+class StockRepository {
     suspend fun getStock(apikey: String, pageNo: Int): StockResponse {
         val response = StockObject.stockService.getStock(apikey, pageNo)
         return if (response.isSuccessful)

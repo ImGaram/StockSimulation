@@ -17,7 +17,7 @@ import com.lakue.pagingbutton.OnPageSelectListener
 class StockFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProvider(this, StockViewModel.Factory(
-            activity?.application!!, RetrofitClient.STOCK_KEY
+            RetrofitClient.STOCK_KEY
         ))[StockViewModel::class.java]
     }
     private lateinit var binding: FragmentStockBinding

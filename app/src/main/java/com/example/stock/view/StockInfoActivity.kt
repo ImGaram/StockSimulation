@@ -24,8 +24,10 @@ import java.text.DecimalFormat
 
 class StockInfoActivity : AppCompatActivity() {
     private val viewModel by lazy {
-        ViewModelProvider(this, StockInfoViewModel.Factory(application, RetrofitClient.STOCK_KEY,
-            30, itemName))[StockInfoViewModel::class.java]
+        ViewModelProvider(this, StockInfoViewModel.Factory(
+            RetrofitClient.STOCK_KEY, 30,
+            itemName
+        ))[StockInfoViewModel::class.java]
     }
     private lateinit var itemName: String
     private lateinit var binding: ActivityStockInfoBinding

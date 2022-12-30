@@ -1,6 +1,5 @@
 package com.example.stock.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -24,10 +23,9 @@ class StockInfoViewModel(
         }
     }
 
-    class Factory(private val application: Application, private val apikey: String, private val numOfRows: Int,
-                  private val itmsNm: String): ViewModelProvider.Factory {
+    class Factory(private val apikey: String, private val numOfRows: Int, private val itmsNm: String): ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return StockInfoViewModel(StockRepository(application), numOfRows, itmsNm, apikey) as T
+            return StockInfoViewModel(StockRepository(), numOfRows, itmsNm, apikey) as T
         }
     }
 }
