@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.stock.R
-import com.example.stock.data.response.Item
+import com.example.stock.data.response.stock.Item
 import com.example.stock.databinding.FragmentBookmarkBinding
 import com.example.stock.view.adapter.StockAdapter
 import com.google.firebase.database.*

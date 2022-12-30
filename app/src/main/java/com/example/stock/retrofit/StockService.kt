@@ -1,6 +1,6 @@
 package com.example.stock.retrofit
 
-import com.example.stock.data.response.StockResponse
+import com.example.stock.data.response.stock.StockResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

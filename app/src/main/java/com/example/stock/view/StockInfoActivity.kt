@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.stock.R
 import com.example.stock.data.ChartData
 import com.example.stock.data.RetrofitClient
-import com.example.stock.data.response.Item
+import com.example.stock.data.response.stock.Item
 import com.example.stock.databinding.ActivityStockInfoBinding
 import com.example.stock.viewmodel.StockInfoViewModel
 import com.github.mikephil.charting.components.XAxis
@@ -186,10 +186,10 @@ class StockInfoActivity : AppCompatActivity() {
             shadowColor = Color.GRAY
             shadowWidth = 0.9F
             // 음봉 설정
-            decreasingColor = Color.BLUE
+            decreasingColor = Color.RED
             decreasingPaintStyle = Paint.Style.FILL
             // 양봉 설정
-            increasingColor = Color.RED
+            increasingColor = Color.BLUE
             increasingPaintStyle = Paint.Style.FILL
 
             neutralColor = Color.rgb(6, 18, 34)

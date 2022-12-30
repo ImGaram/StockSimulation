@@ -1,8 +1,7 @@
 package com.example.stock.repository
 
 import android.app.Application
-import android.util.Log
-import com.example.stock.data.response.StockResponse
+import com.example.stock.data.response.stock.StockResponse
 import com.example.stock.retrofit.StockObject
 
 class StockRepository(application: Application) {

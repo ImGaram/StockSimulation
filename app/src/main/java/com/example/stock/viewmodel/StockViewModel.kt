@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.stock.data.response.StockResponse
+import com.example.stock.data.response.stock.StockResponse
 import com.example.stock.repository.StockRepository
 import kotlinx.coroutines.launch
 

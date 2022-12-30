@@ -4,12 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.stock.data.response.Item
+import com.example.stock.data.response.stock.Item
 import com.example.stock.databinding.ItemStockBinding
 import com.example.stock.view.StockInfoActivity
 import com.google.firebase.database.DataSnapshot
