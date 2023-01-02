@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">@color/lightGray</item>
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/nanum_square_round_bold</item>
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
