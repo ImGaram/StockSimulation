@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stock.data.response.stock.Item
 import com.example.stock.databinding.ItemStockBinding
 import com.example.stock.view.StockInfoActivity
+import com.example.stock.view.dialog.BuyStockDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -63,6 +64,12 @@ class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAda
                 intent.putExtra("bookmark", temp)
                 context.startActivity(intent)
             }
+
+            binding.buyingButton.setOnClickListener {
+                // 다이얼로그 생성
+                BuyStockDialog(context, binding.clpr.text.toString(), binding.itemsName.text.toString()).show()
+            }
+
         }
     }
 

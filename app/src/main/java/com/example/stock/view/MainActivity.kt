@@ -4,10 +4,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stock.R
 import com.example.stock.databinding.ActivityMainBinding
+import com.example.stock.data.firebase.User
 import com.example.stock.view.screen.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        getUserInfo()
         supportFragmentManager.beginTransaction().replace(R.id.linear, StockFragment()).commit()
         navigationLogic()
     }
@@ -50,5 +59,21 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+    }
+
+    private fun getUserInfo() {
+        val database = FirebaseDatabase.getInstance().reference
+        database.child("user").child(auth.currentUser?.uid.toString())
+            .addListenerForSingleValueEvent(object :ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val data = snapshot.getValue(User::class.java)
+                    val dec = DecimalFormat("#,###")
+                    binding.coin.text = "${dec.format(data?.money)}원"
+                    binding.userName.text = data?.name
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
     }
 }
