@@ -46,11 +46,12 @@
 
             <TextView
                 android:id="@+id/coin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100000"
-                android:textSize="20sp"
+                android:layout_width="85dp"
+                android:layout_height="20dp"
+                android:text="0000000"
+                android:textSize="18sp"
                 android:textStyle="bold"
+                android:autoSizeTextType="uniform"
                 android:layout_marginEnd="10dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"/>
