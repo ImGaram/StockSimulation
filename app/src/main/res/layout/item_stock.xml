@@ -14,12 +14,12 @@
         android:layout_margin="10dp"
         app:cardCornerRadius="10dp">
 
-        <View
-            android:id="@+id/bookmark_able_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="gone"
-            android:background="@drawable/bookmark_triangle"/>
+<!--        <View-->
+<!--            android:id="@+id/bookmark_able_view"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:visibility="gone"-->
+<!--            android:background="@drawable/bookmark_triangle"/>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:text="종목 이름"
                 android:textSize="23sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                app:layout_constraintEnd_toStartOf="@+id/favorite_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,31 +62,14 @@
                 app:layout_constraintStart_toEndOf="@+id/clpr"
                 app:layout_constraintTop_toTopOf="@+id/clpr" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="15dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <ImageView
+                android:id="@+id/favorite_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/star_unselect"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <Button
-                    android:id="@+id/buying_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/blue"
-                    android:text="매수"
-                    android:layout_marginBottom="5dp"/>
-
-                <Button
-                    android:id="@+id/sell_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/red"
-                    android:text="매도" />
-            </LinearLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

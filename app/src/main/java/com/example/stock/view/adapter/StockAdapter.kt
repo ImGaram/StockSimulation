@@ -4,22 +4,27 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.stock.R
+import com.example.stock.data.firebase.BookmarkItem
 import com.example.stock.data.response.stock.Item
 import com.example.stock.databinding.ItemStockBinding
 import com.example.stock.view.StockInfoActivity
-import com.example.stock.view.dialog.BuyStockDialog
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.DecimalFormat
 
 class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
     private val list: ArrayList<Item> = arrayListOf()
+    private val database = FirebaseDatabase.getInstance().reference
+    val fireStore = FirebaseFirestore.getInstance()
+    val auth = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ItemStockBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,13 +32,44 @@ class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAda
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+        val item = list[position]
+
+        holder.image.setOnClickListener {
+            val tsDoc = fireStore.collection("bookmark").document(auth)
+            fireStore.runTransaction { ts ->
+                val bookmark = ts.get(tsDoc).toObject(BookmarkItem::class.java)
+
+                if (bookmark!!.bookmark.containsKey(item.itmsNm)) {
+                    Log.d("TAG", "bind if")
+                    bookmark.bookmark.remove(item.itmsNm)
+                    database.child("bookmark").child(auth).child(item.itmsNm).removeValue()
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "찜한 주식에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                            notifyItemChanged(position)
+                        }
+                } else {
+                    Log.d("TAG", "bind else")
+                    bookmark.bookmark[item.itmsNm] = true
+                    database.child("bookmark").child(auth).child(item.itmsNm).setValue(item)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "찜한 주식에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                            notifyItemChanged(position)
+                        }
+                }
+
+                ts.set(tsDoc, bookmark)
+            }
+        }
+
+        setBookmark(holder.image, item)
+        holder.bind(item)
     }
 
     override fun getItemCount(): Int = list.size
 
     inner class ViewHolder(private val binding: ItemStockBinding): RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
+        val image = binding.favoriteImage
         fun bind(item: Item) {
             val dec = DecimalFormat("#,###")
 
@@ -53,39 +89,28 @@ class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAda
                 } else binding.fltRt.text = "전일 대비 ${item.fltRt}% 하락"
             } else binding.fltRt.text = "전일 대비 유지"
             binding.itemsName.text = item.itmsNm
-            setBookmark(binding, item)
+//            setBookmark(binding, item)
 
             itemView.setOnClickListener {
-                val temp = binding.bookmarkAbleView.visibility == View.VISIBLE
-
                 val intent = Intent(context, StockInfoActivity::class.java)
                 intent.putExtra("name", item.itmsNm)
                 intent.putExtra("info", item)
-                intent.putExtra("bookmark", temp)
                 context.startActivity(intent)
             }
-
-            binding.buyingButton.setOnClickListener {
-                // 다이얼로그 생성
-                BuyStockDialog(context, binding.clpr.text.toString(), binding.itemsName.text.toString()).show()
-            }
-
         }
     }
 
-    private fun setBookmark(binding: ItemStockBinding, item: Item) {
-        FirebaseDatabase.getInstance().reference.child("bookmark").child(item.itmsNm).addListenerForSingleValueEvent(
-            object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val data = snapshot.getValue(Item::class.java)
-                    if (data != null) // bookmark 가 되어 있음
-                        binding.bookmarkAbleView.visibility = View.VISIBLE
-                    else
-                        binding.bookmarkAbleView.visibility = View.GONE
+    private fun setBookmark(favoriteImage: ImageView, item: Item) {
+        fireStore.collection("bookmark").document(auth)
+            .get()
+            .addOnSuccessListener {
+                val data = it.toObject(BookmarkItem::class.java)
+                if (data!!.bookmark.containsKey(item.itmsNm)) {
+                    favoriteImage.setImageResource(R.drawable.star_select)
+                } else {
+                    favoriteImage.setImageResource(R.drawable.star_unselect)
                 }
-
-                override fun onCancelled(error: DatabaseError) {}
-            })
+            }
     }
 
     fun addItem(item: List<Item>) {
