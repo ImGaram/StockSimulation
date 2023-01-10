@@ -4,16 +4,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.stock.data.firebase.BookmarkItem
 import com.example.stock.databinding.ActivitySignUpBinding
 import com.example.stock.data.firebase.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var auth: FirebaseAuth
     private val database = FirebaseDatabase.getInstance().reference
+    private val fireStore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,9 @@ class SignUpActivity : AppCompatActivity() {
                     val user = User(email, pw, name, it.toString(), 100000)
 
                     database.child("user").child(auth.currentUser?.uid.toString()).setValue(user).addOnSuccessListener {
+                        // 북마크용 데이터 추가
+                        fireStore.collection("bookmark").document(auth.currentUser?.uid.toString()).set(BookmarkItem())
+
                         Toast.makeText(this, "회원가입을 완료했습니다.", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, SignInActivity::class.java))
                     }

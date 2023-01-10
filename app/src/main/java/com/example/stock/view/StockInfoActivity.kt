@@ -13,6 +13,7 @@ import com.example.stock.data.ChartData
 import com.example.stock.data.RetrofitClient
 import com.example.stock.data.response.stock.Item
 import com.example.stock.databinding.ActivityStockInfoBinding
+import com.example.stock.view.dialog.BuyStockDialog
 import com.example.stock.viewmodel.StockInfoViewModel
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -48,25 +49,9 @@ class StockInfoActivity : AppCompatActivity() {
         binding.stockInfoStockName.text = itemName
         binding.stockName.text = itemName
 
-        val bookmarkImage = binding.bookmarkImage
-        bookmarkAble = intent.getBooleanExtra("bookmark", false)
-        bookMarkLogic()
-        bookmarkImage.setOnClickListener {
-            val ref = database.child("bookmark").child(item.itmsNm)
-            Log.d("TAG", "onCreate: $bookmarkAble")
-            if (!bookmarkAble) { // 찜 리스트에 삽입
-                ref.setValue(item).addOnSuccessListener {
-                    bookmarkAble = true
-                    Toast.makeText(this, "찜한 주식에 추가되었습니다.", Toast.LENGTH_SHORT).show()
-                    bookMarkLogic()
-                }
-            } else {    // 이미 찜 리스트에 들어가 있음
-                ref.removeValue().addOnSuccessListener {
-                    bookmarkAble = false
-                    Toast.makeText(this, "찜한 주식에서 제거되었습니다.", Toast.LENGTH_SHORT).show()
-                    bookMarkLogic()
-                }
-            }
+        binding.buyingButton.setOnClickListener {
+            // 다이얼로그 생성
+            BuyStockDialog(this, item).show()
         }
 
         val candle = arrayListOf<ChartData>()
@@ -91,11 +76,6 @@ class StockInfoActivity : AppCompatActivity() {
                 setData(list[0])
             }
         }
-    }
-
-    private fun bookMarkLogic() {
-        if (!bookmarkAble) binding.bookmarkImage.setImageResource(R.drawable.ic_baseline_bookmark_border_24)
-        else binding.bookmarkImage.setImageResource(R.drawable.ic_baseline_bookmark_24)
     }
 
     // candle stick chart
