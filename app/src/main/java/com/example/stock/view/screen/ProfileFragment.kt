@@ -27,8 +27,7 @@ class ProfileFragment : Fragment() {
 
     private val viewModel by lazy {
         ViewModelProvider(this, StockInfoViewModel.Factory(
-            RetrofitClient.STOCK_KEY, 1,
-            itemName
+            RetrofitClient.STOCK_KEY, 1, itemName
         ))[StockInfoViewModel::class.java]
     }
     private lateinit var itemName: String
@@ -76,7 +75,6 @@ class ProfileFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value == null) {
                         binding.totalMoney.text = "${dec.format(money)}원"
-                        binding.ratePercent.text = "0%"
                     } else {
                         for (i in snapshot.children) {
                             val item = i.getValue(BuyingItem::class.java)
@@ -88,7 +86,6 @@ class ProfileFragment : Fragment() {
                                 total += item?.buyingCount!! * clpr.toInt()
 
                                 binding.totalMoney.text = "${dec.format(money!! + total)}원"
-                                binding.ratePercent.text = "${(money + total - 100000).toFloat() / 100F}%"
                             }
                         }
                     }
