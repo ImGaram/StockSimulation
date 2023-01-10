@@ -80,7 +80,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red"
-            android:text="구매" />
+            android:text="구매"
+            android:layout_marginStart="10dp"/>
 
         <View
             android:layout_width="0dp"
@@ -92,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blue"
-            android:text="취소" />
+            android:text="취소"
+            android:layout_marginEnd="10dp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
