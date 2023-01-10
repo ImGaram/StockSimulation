@@ -35,8 +35,6 @@ class StockInfoActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var item: Item
 
-    private var bookmarkAble: Boolean = false   // bookmark 상태를 관리한다.
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

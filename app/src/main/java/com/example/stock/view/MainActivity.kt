@@ -1,6 +1,7 @@
 package com.example.stock.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stock.R
 import com.example.stock.databinding.ActivityMainBinding
@@ -75,5 +76,13 @@ class MainActivity : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {}
 
             })
+    }
+
+    // activity 가 사용자와 상호작용하기 전에 호출
+    override fun onResume() {
+        super.onResume()
+
+        // 코인 정보 갱신
+        getUserInfo()
     }
 }
