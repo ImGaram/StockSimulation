@@ -4,16 +4,14 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.stock.R
 import com.example.stock.data.ChartData
 import com.example.stock.data.RetrofitClient
 import com.example.stock.data.response.stock.Item
 import com.example.stock.databinding.ActivityStockInfoBinding
 import com.example.stock.view.dialog.BuyStockDialog
+import com.example.stock.view.dialog.SellStockDialog
 import com.example.stock.viewmodel.StockInfoViewModel
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -72,6 +70,10 @@ class StockInfoActivity : AppCompatActivity() {
 
                 // set data
                 setData(list[0])
+
+                binding.sellButton.setOnClickListener {
+                    SellStockDialog(this, item, list[0].clpr.toInt()).show()
+                }
             }
         }
     }

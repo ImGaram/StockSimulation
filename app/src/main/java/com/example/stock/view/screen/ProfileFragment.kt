@@ -60,7 +60,6 @@ class ProfileFragment : Fragment() {
                     binding.profileEmail.text = data?.email
                     binding.myMoney.text = "${dec.format(data?.money)}원"
                     setTotalMoney(data?.money)
-                    binding.ratePercent.text = ""   // 바뀐 값 - 100,000 * 100
                 }
 
                 override fun onCancelled(error: DatabaseError) {}
@@ -75,19 +74,25 @@ class ProfileFragment : Fragment() {
             .addListenerForSingleValueEvent(object :ValueEventListener {
                 @SuppressLint("SetTextI18n")
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    for (i in snapshot.children) {
-                        val item = i.getValue(BuyingItem::class.java)
+                    if (snapshot.value == null) {
+                        binding.totalMoney.text = "${dec.format(money)}원"
+                        binding.ratePercent.text = "0%"
+                    } else {
+                        for (i in snapshot.children) {
+                            val item = i.getValue(BuyingItem::class.java)
 
-                        itemName = item?.itemName.toString()
-                        viewModel.getStockInfo()
-                        viewModel.getStockInfoLiveData.observe(viewLifecycleOwner) { response ->
-                            val clpr = response.response?.body?.items?.item!![0].clpr
-                            total += item?.buyingCount!! * clpr.toInt()
+                            itemName = item?.itemName.toString()
+                            viewModel.getStockInfo()
+                            viewModel.getStockInfoLiveData.observe(viewLifecycleOwner) { response ->
+                                val clpr = response.response?.body?.items?.item!![0].clpr
+                                total += item?.buyingCount!! * clpr.toInt()
 
-                            binding.totalMoney.text = "${dec.format(money!! + total)}원"
-                            binding.ratePercent.text = "${(money + total - 100000).toFloat() / 100F}%"
+                                binding.totalMoney.text = "${dec.format(money!! + total)}원"
+                                binding.ratePercent.text = "${(money + total - 100000).toFloat() / 100F}%"
+                            }
                         }
                     }
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {}

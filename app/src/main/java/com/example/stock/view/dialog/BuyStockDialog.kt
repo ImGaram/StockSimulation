@@ -35,8 +35,6 @@ class BuyStockDialog(context: Context, private val item: Item): Dialog(context) 
     }
 
     private fun initView() = with(binding) {
-//        val intPrice = clpr.substring(0, clpr.length -1).toInt()
-
         setCancelable(false)    // 빈 공간 클릭해도 다이얼로그 안없어지게
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -79,7 +77,7 @@ class BuyStockDialog(context: Context, private val item: Item): Dialog(context) 
                 database.child("user").child(user)
                     .child("money").setValue(res).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            addBuyingList(total)
+                            addBuyingList()
                         }
                     }
             }
@@ -89,8 +87,8 @@ class BuyStockDialog(context: Context, private val item: Item): Dialog(context) 
         })
     }
 
-    private fun addBuyingList(total: Int) = with(binding) {
-        val buyingItem = BuyingItem(item.itmsNm, stockCount.text.toString().toInt(), total)
+    private fun addBuyingList() = with(binding) {
+        val buyingItem = BuyingItem(item.itmsNm, stockCount.text.toString().toInt())
         database.child("buying").child(auth.currentUser?.uid.toString()).child(item.itmsNm).setValue(buyingItem)
             .addOnSuccessListener {
                 Toast.makeText(context, "구매가 완료되었습니다.", Toast.LENGTH_SHORT).show()
