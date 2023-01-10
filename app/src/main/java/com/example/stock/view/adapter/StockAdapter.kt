@@ -44,16 +44,19 @@ class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAda
                     bookmark.bookmark.remove(item.itmsNm)
                     database.child("bookmark").child(auth).child(item.itmsNm).removeValue()
                         .addOnSuccessListener {
+                            //0.5초 쉬기(firebase 의 데이터가 바뀌기 전에 notifyItemChanged 가 호출되지 않게 하기 위함
+                            Thread.sleep(500)
+                            notifyItemChanged(position) // 해당 위치의 아이템만 변경
                             Toast.makeText(context, "찜한 주식에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                            notifyItemChanged(position)
                         }
                 } else {
                     Log.d("TAG", "bind else")
                     bookmark.bookmark[item.itmsNm] = true
                     database.child("bookmark").child(auth).child(item.itmsNm).setValue(item)
                         .addOnSuccessListener {
-                            Toast.makeText(context, "찜한 주식에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                            Thread.sleep(500)
                             notifyItemChanged(position)
+                            Toast.makeText(context, "찜한 주식에 추가되었습니다.", Toast.LENGTH_SHORT).show()
                         }
                 }
 
@@ -89,7 +92,6 @@ class StockAdapter(private val context: Context) : RecyclerView.Adapter<StockAda
                 } else binding.fltRt.text = "전일 대비 ${item.fltRt}% 하락"
             } else binding.fltRt.text = "전일 대비 유지"
             binding.itemsName.text = item.itmsNm
-//            setBookmark(binding, item)
 
             itemView.setOnClickListener {
                 val intent = Intent(context, StockInfoActivity::class.java)
