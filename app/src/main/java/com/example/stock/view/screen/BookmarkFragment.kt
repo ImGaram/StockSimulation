@@ -38,8 +38,6 @@ class BookmarkFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapShot in snapshot.children) {
                     val item = dataSnapShot.getValue(Item::class.java)
-                    Log.d("TAG", "bookmark fragment onDataChange: $item")
-
                     if (item != null) adapter.add(item)
                 }
 
