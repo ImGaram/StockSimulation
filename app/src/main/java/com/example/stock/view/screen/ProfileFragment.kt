@@ -67,8 +67,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setTotalMoney(money: Int?) {
-        var total = 0
-
         database.child("buying").child(auth.currentUser?.uid.toString())
             .addListenerForSingleValueEvent(object :ValueEventListener {
                 @SuppressLint("SetTextI18n")
@@ -78,22 +76,30 @@ class ProfileFragment : Fragment() {
                     } else {
                         for (i in snapshot.children) {
                             val item = i.getValue(BuyingItem::class.java)
+                            Log.d("TAG", "onDataChange profile for loop: $item")
 
-                            itemName = item?.itemName.toString()
-                            viewModel.getStockInfo()
-                            viewModel.getStockInfoLiveData.observe(viewLifecycleOwner) { response ->
-                                val clpr = response.response?.body?.items?.item!![0].clpr
-                                total += item?.buyingCount!! * clpr.toInt()
-
-                                binding.totalMoney.text = "${dec.format(money!! + total)}원"
+                            getTotalMoney(item) {
+                                binding.totalMoney.text = "${dec.format(money!! + it)}원"
                             }
                         }
                     }
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {}
 
             })
+    }
+
+    private fun getTotalMoney(item: BuyingItem?, value: (Int) -> Unit): Int {
+        var total = 0
+
+        itemName = item?.itemName.toString()
+        viewModel.getStockInfo()
+        viewModel.getStockInfoLiveData.observe(viewLifecycleOwner) { response ->
+            val clpr = response.response?.body?.items?.item!![0].clpr
+            total += item?.buyingCount!! * clpr.toInt()
+            value(total)
+        }
+        return total
     }
 }
