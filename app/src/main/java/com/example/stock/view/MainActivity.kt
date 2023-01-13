@@ -17,12 +17,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val auth = FirebaseAuth.getInstance()
     private val database = FirebaseDatabase.getInstance().reference
+    private val fireStore = FirebaseFirestore.getInstance()
 
     private val viewModel by lazy {
         ViewModelProvider(this, StockInfoViewModel.Factory(
@@ -39,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.linear, StockFragment()).commit()
 
         getUserInfo()
-        getUserForRank()
         navigationLogic()
     }
 
@@ -54,8 +55,8 @@ class MainActivity : AppCompatActivity() {
                             val item = dataSnapshot.getValue(BuyingItem::class.java)
 
                             getTotal(item) {
-                                database.child("rank").child(auth.currentUser?.uid.toString())
-                                    .setValue(RankItem(user.name, user.email, user.profile, it + user.money))
+                                fireStore.collection("rank").document(auth.currentUser?.uid.toString())
+                                    .set(RankItem(user.name, user.email, user.profile, it + user.money))
                             }
                         }
                     }
@@ -118,6 +119,12 @@ class MainActivity : AppCompatActivity() {
 
         // 코인 정보 갱신
         getUserInfo()
+    }
+
+    // activity 가 보이기 전에 불림
+    override fun onStart() {
+        super.onStart()
+        getUserForRank()
     }
 
     private fun navigationLogic() {

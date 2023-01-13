@@ -48,7 +48,7 @@ class RankingAdapter(private val context: Context): RecyclerView.Adapter<Ranking
             }
             binding.rankUserEmail.text = rankItem.email
             binding.rankUserName.text = rankItem.name
-            binding.userTotalMoney.text = dec.format(rankItem.totalMoney)
+            binding.userTotalMoney.text = "${dec.format(rankItem.totalMoney)}원"
             Glide.with(context)
                 .load(rankItem.profile)
                 .into(binding.rankUserProfile)

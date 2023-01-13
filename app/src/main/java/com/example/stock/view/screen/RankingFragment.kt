@@ -13,10 +13,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class RankingFragment : Fragment() {
     private lateinit var binding: FragmentRankingBinding
-    private val database = FirebaseDatabase.getInstance().reference
+    private val fireStore = FirebaseFirestore.getInstance()
     private lateinit var adapter: RankingAdapter
 
     override fun onCreateView(
@@ -31,20 +33,16 @@ class RankingFragment : Fragment() {
     }
 
     private fun getRank() {
-        database.child("rank").orderByChild("totalMoney")
-            .addListenerForSingleValueEvent(object :ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (i in snapshot.children) {
-                        val data = i.getValue(RankItem::class.java)
-                        if (data != null) adapter.add(data)
-                    }
-
-                    initRecycler()
+        fireStore.collection("rank").orderBy("totalMoney", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (i in querySnapshot.documents) {
+                    val data = i.toObject(RankItem::class.java)
+                    if (data != null) adapter.add(data)
                 }
 
-                override fun onCancelled(error: DatabaseError) {}
-
-            })
+                initRecycler()
+            }
     }
 
     private fun initRecycler() {
