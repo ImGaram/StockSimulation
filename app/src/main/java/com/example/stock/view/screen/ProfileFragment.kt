@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.stock.data.RetrofitClient
 import com.example.stock.data.firebase.BuyingItem
 import com.example.stock.data.firebase.User
@@ -111,5 +112,24 @@ class ProfileFragment : Fragment() {
             value(total)
         }
         return total
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        database.child("user").child(auth.currentUser?.uid.toString())
+            .addListenerForSingleValueEvent(object :ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val item = snapshot.getValue(User::class.java)
+
+                    Glide.with(context!!)
+                        .load(item?.profile)
+                        .into(binding.profileImage)
+                    binding.profileName.text = item?.name
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+
+            })
     }
 }
