@@ -13,6 +13,7 @@ import com.example.stock.data.RetrofitClient
 import com.example.stock.data.firebase.BuyingItem
 import com.example.stock.data.firebase.User
 import com.example.stock.databinding.FragmentProfileBinding
+import com.example.stock.view.ChangeProfileActivity
 import com.example.stock.view.SignInActivity
 import com.example.stock.viewmodel.StockInfoViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -40,10 +41,19 @@ class ProfileFragment : Fragment() {
         database = FirebaseDatabase.getInstance().reference
 
         setView()
+        binding.changeProfileLayout.setOnClickListener {
+            startActivity(Intent(context, ChangeProfileActivity::class.java))
+            
+        }
+
         binding.logoutLayout.setOnClickListener {
             auth.signOut()
             startActivity(Intent(context, SignInActivity::class.java))
             activity?.finish()
+        }
+
+        binding.changeProfileLayout.setOnClickListener {
+            startActivity(Intent(context, ChangeProfileActivity::class.java))
         }
 
         return binding.root
