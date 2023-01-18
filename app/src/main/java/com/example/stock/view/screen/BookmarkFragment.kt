@@ -1,7 +1,6 @@
 package com.example.stock.view.screen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +51,7 @@ class BookmarkFragment : Fragment() {
 
     private fun initBookmarkRecycler() {
         binding.bookmarkRecyclerView.adapter = adapter
-        binding.bookmarkRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.bookmarkRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         binding.bookmarkShimmerFrame.stopShimmer()
         binding.bookmarkShimmerFrame.visibility = View.GONE

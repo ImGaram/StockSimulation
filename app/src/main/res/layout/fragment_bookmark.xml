@@ -1,53 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.screen.BookmarkFragment">
+    tools:context=".view.screen.BookmarkFragment"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/bookmark_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:text="즐겨찾기한 주식들"
         android:textSize="25sp"
+        android:paddingStart="15dp"
+        android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookmark_recycler_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookmark_title" />
+        android:layout_height="match_parent">
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/bookmark_shimmer_frame"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bookmark_recycler_view">
-
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bookmark_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookmark_title" />
 
-            <include layout="@layout/layout_shimmer" />
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/bookmark_shimmer_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bookmark_recycler_view">
 
-            <include layout="@layout/layout_shimmer" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <include layout="@layout/layout_shimmer" />
+                <include layout="@layout/layout_shimmer" />
 
-            <include layout="@layout/layout_shimmer" />
+                <include layout="@layout/layout_shimmer" />
 
-            <include layout="@layout/layout_shimmer" />
+                <include layout="@layout/layout_shimmer" />
 
-            <include layout="@layout/layout_shimmer" />
-        </LinearLayout>
-    </com.facebook.shimmer.ShimmerFrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <include layout="@layout/layout_shimmer" />
+
+                <include layout="@layout/layout_shimmer" />
+
+                <include layout="@layout/layout_shimmer" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </FrameLayout>
+</LinearLayout>

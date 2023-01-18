@@ -31,6 +31,7 @@ class BookmarkAdapter(private val context: Context) : RecyclerView.Adapter<Bookm
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
+        holder.bind(item)
 
         holder.image.setOnClickListener {
             val tsDoc = fireStore.collection("bookmark").document(auth)
@@ -53,7 +54,6 @@ class BookmarkAdapter(private val context: Context) : RecyclerView.Adapter<Bookm
         }
 
         setBookmark(holder.image, item)
-        holder.bind(item)
     }
 
     override fun getItemCount(): Int = list.size
