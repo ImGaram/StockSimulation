@@ -15,7 +15,6 @@ import com.example.stock.data.firebase.BuyingItem
 import com.example.stock.data.firebase.User
 import com.example.stock.databinding.FragmentProfileBinding
 import com.example.stock.view.ChangeProfileActivity
-import com.example.stock.view.ManageStockActivity
 import com.example.stock.view.SignInActivity
 import com.example.stock.viewmodel.StockInfoViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -51,14 +50,6 @@ class ProfileFragment : Fragment() {
             auth.signOut()
             startActivity(Intent(context, SignInActivity::class.java))
             activity?.finish()
-        }
-
-        binding.changeProfileLayout.setOnClickListener {
-            startActivity(Intent(context, ChangeProfileActivity::class.java))
-        }
-
-        binding.manageStockLayout.setOnClickListener {
-            startActivity(Intent(context, ManageStockActivity::class.java))
         }
 
         return binding.root
